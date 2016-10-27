@@ -1,3 +1,16 @@
+## 1027 
+## https://plot.ly/python/getting-started/
+## https://plot.ly/alpha/workspace/
+## https://plot.ly/python/distplot/
+pip install plotly 
+pip install plotly --upgrade
+import plotly
+from plotly.graph_objs import Histogram, Layout
+
+plotly.offline.plot({
+    "data": [Histogram(x=[1, 2, 3, 4, 5, 6, 6, 6, 6, 6])],
+})
+##
 ## http://stackoverflow.com/questions/5328556/histogram-matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
