@@ -1,3 +1,9 @@
+## 1028
+## https://qualityandinnovation.files.wordpress.com/2015/11/xbar-r-75-925_9.pdf
+diameters <- as.data.frame(replicate(4, rnorm(10,mean=1.31,sd=0.05)))
+q <- qcc(diameters, type="R", nsigmas=3)
+q <- qcc(diameters, type="xbar", nsigmas=3)
+process.capability(q, spec.limits=c(1.31,1.32))
 ## 1027 
 ## https://plot.ly/python/getting-started/
 ## https://plot.ly/alpha/workspace/
