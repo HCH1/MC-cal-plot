@@ -1,9 +1,19 @@
 ## 1028
+## http://stackoverflow.com/questions/25198442/how-to-calculate-mean-median-per-group-in-a-dataframe-in-r
+library(doBy)
+summaryBy(value ~ custid, data = mydf, 
+          FUN = list(mean, max, min, median, sd))
+#   custid value.mean value.max value.min value.median value.sd
+# 1      1   2.666667         5         1          2.5 1.632993
+# 2      2   5.500000        10         1          5.5 6.363961
+# 3      3   2.666667         5         1          2.0 2.081666
+
 ## https://qualityandinnovation.files.wordpress.com/2015/11/xbar-r-75-925_9.pdf
 diameters <- as.data.frame(replicate(4, rnorm(10,mean=1.31,sd=0.05)))
 q <- qcc(diameters, type="R", nsigmas=3)
 q <- qcc(diameters, type="xbar", nsigmas=3)
 process.capability(q, spec.limits=c(1.31,1.32))
+
 ## 1027 
 ## https://plot.ly/python/getting-started/
 ## https://plot.ly/alpha/workspace/
