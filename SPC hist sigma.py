@@ -1,3 +1,14 @@
+## 1111
+## https://www.analyticsvidhya.com/blog/2014/05/build-word-cloud-text-mining-tools/
+dtm <- DocumentTermMatrix(docs)
+library(wordcloud)
+m <- as.matrix(dtm)
+v <- sort(colSums(m),decreasing=TRUE)
+head(v,14)
+words <- names(v)
+d <- data.frame(word=words, freq=v)
+wordcloud(d$word,d$freq,min.freq=50)
+##
 ## 1028
 ## http://stackoverflow.com/questions/25198442/how-to-calculate-mean-median-per-group-in-a-dataframe-in-r
 library(doBy)
