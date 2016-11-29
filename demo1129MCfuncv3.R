@@ -10,6 +10,10 @@ MySummary <- function(n)
   p3sigma <- mean(n) + 3*sd(n);
   m3sigma <- mean(n) - 3*sd(n);
   mysum_ans <- rbind(max, med, avg, min, stdv, p3sigma, m3sigma);
+  write.table(x = mysum_ans, file = "o1129v2.csv", sep = ",", col.names = NA, qmethod = "double");
+  den <- density(n);
+  hist(n, prob=TRUE);
+  # lines(den)
   return(mysum_ans)
 }
 ##
