@@ -1,7 +1,6 @@
-# we define the function and specify the exponent, second argument directly
 mydata = read.csv("1129demov2.csv")
 ##
-MySummary <- function(n) # sets default of exponent to 2 (we just square)
+MySummary <- function(n)
 {
   max <- max(n);
   med <- median(n);
