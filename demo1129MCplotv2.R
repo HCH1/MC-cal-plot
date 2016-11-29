@@ -1,3 +1,6 @@
+## http://www.sr.bham.ac.uk/~ajrs/R/r-function_list.html
+## http://stackoverflow.com/questions/6939136/how-to-overlay-density-plots-in-r
+## 
 mydata = read.csv("1129demov2.csv")
 myans1 <- summary(mydata)
 write.table(x = myans1, file = "o1129v1.csv", sep = ",", col.names = NA, qmethod = "double")
