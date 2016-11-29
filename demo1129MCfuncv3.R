@@ -16,5 +16,7 @@ MySummary <- function(n)
   # lines(den)
   return(mysum_ans)
 }
-##
 # MySummary(mydata$AMinTopChord)
+##
+ans1 <- summary(mydata)
+##
