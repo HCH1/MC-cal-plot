@@ -49,6 +49,19 @@ lines(plotdata$V3)
 ## https://www.r-bloggers.com/box-plot-with-r-tutorial/
 boxplot(mydata100$AMinTopChord, mydata100$AMinBottomChord, mydata70$AMinTopChord, mydata70$AMinBottomChord, mydata40$AMinTopChord, mydata40$AMinBottomChord)
 ## https://www.r-bloggers.com/exploratory-data-analysis-combining-box-plots-and-kernel-density-plots-into-violin-plots-for-ozone-pollution-data/
-install.packages("vioplot")
-library("vioplot")
-vioplot(mydata100$AMinTopChord, mydata100$AMinBottomChord, mydata70$AMinTopChord, mydata70$AMinBottomChord, mydata40$AMinTopChord, mydata40$AMinBottomChord)
+# install.packages("vioplot")
+# library("vioplot")
+# vioplot(mydata100$AMinTopChord, mydata100$AMinBottomChord, mydata70$AMinTopChord, mydata70$AMinBottomChord, mydata40$AMinTopChord, mydata40$AMinBottomChord, col = "lightblue", rectCol="gray")
+vioplot(mydata100$AMinTopChord, mydata100$AMinBottomChord, mydata40$AMinTopChord, mydata40$AMinBottomChord, col = "lightblue", rectCol="gray")
+title("PC40 vs PC100 plot")
+abline(h = plotdata[3,3])
+abline(h = plotdata[3,4])
+abline(h = plotdata[1,3])
+abline(h = plotdata[1,4])
+##
+vioplot(mydata40$AMinTopChord, mydata40$AMinBottomChord, names=c("PC40_Top", "PC40_Bot"), col = "lightblue", rectCol="gray")
+title("PC40 plot")
+## https://stat.ethz.ch/pipermail/r-help/2007-October/143673.html
+abline(h = plotdata[3,3])
+abline(h = plotdata[3,4])
+##
