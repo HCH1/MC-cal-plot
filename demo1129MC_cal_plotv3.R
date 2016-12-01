@@ -1,7 +1,8 @@
+## https://www.r-statistics.com/2013/03/updating-r-from-r-on-windows-using-the-installr-package/
 # installing/loading the package:
-#if(!require(installr)) {
-#install.packages("installr"); require(installr)} #load / install+load installr
-#updateR()
+# if(!require(installr)) {
+# install.packages("installr"); require(installr)} #load / install+load installr
+# updateR()
 ##
 # mydata70ls = read.csv("o1201_PC.EN.RX.1_3_PC70ls_pt5K.csv")
 mydata70 = read.csv("o1201_PC.EN.RX.1_4_PC70_pt5K.csv")
@@ -39,15 +40,15 @@ write.csv(x = mx_a2, file = "oDemoCalPlotV2.csv")
 ##
 return(mx_a2)
 }
-##
-#plot(mx_a2[,5], type="o", col="blue", ylim=c(0,120))
+## 
+## http://www.harding.edu/fmccown/r/
+# plot(mx_a2[,5], type="o", col="blue", ylim=c(0,120))
 plotdata = read.csv("oDemoCalPlotV2.csv")
 plot(plotdata$V2)
 lines(plotdata$V3)
-# boxplot(mydata100$AMinTopChord)
+## https://www.r-bloggers.com/box-plot-with-r-tutorial/
 boxplot(mydata100$AMinTopChord, mydata100$AMinBottomChord, mydata70$AMinTopChord, mydata70$AMinBottomChord, mydata40$AMinTopChord, mydata40$AMinBottomChord)
-##
-# Violin Plots
+## https://www.r-bloggers.com/exploratory-data-analysis-combining-box-plots-and-kernel-density-plots-into-violin-plots-for-ozone-pollution-data/
 install.packages("vioplot")
 library("vioplot")
 vioplot(mydata100$AMinTopChord, mydata100$AMinBottomChord, mydata70$AMinTopChord, mydata70$AMinBottomChord, mydata40$AMinTopChord, mydata40$AMinBottomChord)
