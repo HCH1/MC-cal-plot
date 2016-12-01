@@ -1,4 +1,4 @@
-# SPC-histogram-sigma
+# MC-cal-plot
 Plotly:
 - https://plot.ly/python/getting-started/
 
