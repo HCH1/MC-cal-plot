@@ -14,29 +14,75 @@ mydata100 = read.csv("o1201_PC.EN.RX.1_PC100_pt5K.csv")
 ##
 DemoCalPlotV2 <- function(t1,b1,t2,b2,t3,b3)
 {
-mean1 <- mean(b1)
-top100 <- mean(t1) - 3*sd(t1)
-bot100 <- mean(b1) + 3*sd(b1)
-ans_bt100 <- bot100 - top100
+len_b1 <- length(b1)
+len_t1 <- length(t1)
 
-mean2 <- mean(b2)
-top70 <- mean(t2) - 3*sd(t2)
-bot70 <- mean(b2) + 3*sd(b2)
-ans_bt70 <- bot70 - top70
+max_b1 <- max(b1)
+max_b2 <- max(b2)
+max_b3 <- max(b3)
+max_t1 <- max(t1)
+max_t2 <- max(t2)
+max_t3 <- max(t3)
 
-mean3 <- mean(b3)
-top40 <- mean(t3) - 3*sd(t3)
-bot40 <- mean(b3) + 3*sd(b3)
-ans_bt40 <- bot40 - top40
+min_b1 <- min(b1)
+min_b2 <- min(b2)
+min_b3 <- min(b3)
+min_t1 <- min(t1)
+min_t2 <- min(t2)
+min_t3 <- min(t3)
+
+avg_b1 <- mean(b1)
+avg_b2 <- mean(b2)
+avg_b3 <- mean(b3)
+avg_t1 <- mean(t1)
+avg_t2 <- mean(t2)
+avg_t3 <- mean(t3)
+
+sd_b1 <- sd(b1)
+sd_b2 <- sd(b2)
+sd_b3 <- sd(b3)
+sd_t1 <- sd(t1)
+sd_t2 <- sd(t2)
+sd_t3 <- sd(t3)
+
+top_t1 <- mean(t1) - 3*sd(t1)
+bot_b1 <- mean(b1) + 3*sd(b1)
+ans_bt1 <- bot_b1 - top_t1
+
+top_t2 <- mean(t2) - 3*sd(t2)
+bot_b2 <- mean(b2) + 3*sd(b2)
+ans_bt2 <- bot_b2 - top_t2
+
+top_t3 <- mean(t3) - 3*sd(t3)
+bot_b3 <- mean(b3) + 3*sd(b3)
+ans_bt3 <- bot_b3 - top_t3
 ##
-val <- c(mean1, mean2, mean3, bot100, bot70, bot40, top100, top70, top40, ans_bt100, ans_bt70, ans_bt40)
+val <- c(bot_b1, bot_b2, bot_b3, top_t1, top_t2, top_t3, ans_bt1, ans_bt2, ans_bt3)
+val_b <- c(max_b1, max_b2, max_b3, avg_b1, avg_b2, avg_b3, min_b1, min_b2, min_b3, sd_b1, sd_b2, sd_b3)
+val_t <- c(max_t1, max_t2, max_t3, avg_t1, avg_t2, avg_t3, min_t1, min_t2, min_t3, sd_t1, sd_t2, sd_t3)
+
 mx_a = matrix(
 	val, 	
 	nrow=3, 
+	ncol=3);
+mx_a2 <- cbind(mx_a, mx_a[,3]/mx_a[,1])
+
+mx_val_b = matrix(
+	val_b,
+	nrow=3, 
 	ncol=4);
-mx_a2 <- cbind(mx_a, mx_a[,4]/mx_a[,2])
+
+mx_val_t = matrix(
+	val_t, 	
+	nrow=3, 
+	ncol=4);
+	
+mx_val_bt <- cbind(mx_val_b, mx_val_t)
 ##
 write.csv(x = mx_a2, file = "oDemoCalPlotV2.csv")
+write.csv(x = mx_val_b, file = "omx_val_b.csv")
+write.csv(x = mx_val_t, file = "omx_val_t.csv")
+write.csv(x = mx_val_bt, file = "omx_val_bt.csv")
 ##
 return(mx_a2)
 }
@@ -44,8 +90,8 @@ return(mx_a2)
 ## http://www.harding.edu/fmccown/r/
 # plot(mx_a2[,5], type="o", col="blue", ylim=c(0,120))
 plotdata = read.csv("oDemoCalPlotV2.csv")
-plot(plotdata$V2)
-lines(plotdata$V3)
+plot(rev(plotdata$V2))
+lines(rev(plotdata$V3))
 ## https://www.r-bloggers.com/box-plot-with-r-tutorial/
 boxplot(mydata100$AMinTopChord, mydata100$AMinBottomChord, mydata70$AMinTopChord, mydata70$AMinBottomChord, mydata40$AMinTopChord, mydata40$AMinBottomChord)
 ## https://www.r-bloggers.com/exploratory-data-analysis-combining-box-plots-and-kernel-density-plots-into-violin-plots-for-ozone-pollution-data/
