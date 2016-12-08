@@ -14,13 +14,13 @@ write.csv(x = mx_dtt2, file = "o1208_mx_dtt2.csv")
 mx_dtt2_coldev2spi <- unique( paste(mx_dtt2$Device, mx_dtt2$SPICE, sep = " | ") ) 
 write.csv(x = mx_dtt2_coldev2spi, file = "o1208_mx_dtt2_coldev2spi.csv")
 
-mx_dtt2_coldev <- unique(mx_dtt2$Device)
+mx_dtt2_coldev <- unique(mx_dtt2$Device) # 124ea
 write.csv(x = mx_dtt2_coldev, file = "o1208_mx_dtt2_coldev.csv")
 
 mx_dtt2_colspi <- unique(mx_dtt2$SPICE)
 write.csv(x = mx_dtt2_colspi, file = "o1208_mx_dtt2_colspi.csv")
 
-mx_dtt2_colvar <- unique(mx_dtt2$variable)
+mx_dtt2_colvar <- unique(mx_dtt2$variable) # 49ea, 123x49=6076
 write.csv(x = mx_dtt2_colvar, file = "o1208_mx_dtt2_colvar.csv")
 # sort
 # mx_dtt2 <- mx_dtt2[order(mx_dtt2$Device),]
@@ -31,19 +31,26 @@ write.csv(x = mx_dtt3, file = "o1208_mx_dtt3.csv")
 mx_dtt2_fil1 <- mx_dtt2[mx_dtt2$variable == "CELLSNR",]
 mx_dtt2_fil1 <- mx_dtt2_fil1[mx_dtt2_fil1$value != "0",]
 write.csv(x = mx_dtt2_fil1, file = "o1208_mx_dtt2_fil1.csv")
-mx_dtt2_fil2 <- unique(mx_dtt2_fil1$Device)
-write.csv(x = mx_dtt2_fil2, file = "o1208_mx_dtt2_fil2.csv")
+mx_dtt2_fil2 <- unique(mx_dtt2_fil1$Device) # 36ea
+write.csv(x = mx_dtt2_fil2, file = "o1208_mx_dtt2_fil2.csv") 
 ##
-mx_dtt2_fil_oppo <- mx_dtt2[]
+mx_dtt2_fil_oppo <- mx_dtt2
 
 for(i in 1:length(mx_dtt2_fil2)) {
   mx_dtt2_fil_oppo <- mx_dtt2_fil_oppo[mx_dtt2_fil_oppo$Device != mx_dtt2_fil2[i],]
 }
-
 write.csv(x = mx_dtt2_fil_oppo, file = "o1208_mx_dtt2_fil_oppo.csv")
 #which(mx_dtt2$Device == mx_dtt2_fil2[i] | mx_dtt2$Device == mx_dtt2_fil2[2]),]
-##
-mx_dtt2_fil_oppo2 <- mx_dtt2[ -(mx_dtt2_fil_oppo) ]
-write.csv(x = mx_dtt2_fil_oppo2, file = "o1208_mx_dtt2_fil_oppo2.csv")
+## if 124 filter != 36 -> 88
+## then re-do 124 filter != 88 -> 36
+mx_dtt2_fil_oppo2 <- mx_dtt2
 
+for(i in 1:length(unique(mx_dtt2_fil_oppo$Device))) {
+  mx_dtt2_fil_oppo2 <- mx_dtt2_fil_oppo2[mx_dtt2_fil_oppo2$Device != mx_dtt2_fil_oppo$Device[i],]
+}
+write.csv(x = mx_dtt2_fil_oppo2, file = "o1208_mx_dtt2_fil_oppo2.csv")
 ##
+mx_dtt2_fil_oppo2_val0 <- mx_dtt2_fil_oppo2[mx_dtt2_fil_oppo2$value == "0",]
+write.csv(x = mx_dtt2_fil_oppo2_val0, file = "o1208_mx_dtt2_fil_oppo2_val0.csv")
+##
+
