@@ -4,10 +4,10 @@
 # library(compare)
 ## https://www.r-bloggers.com/reshape-and-aggregate-data-with-the-r-package-reshape2/
 ## http://seananderson.ca/2013/10/19/reshape.html
-demoFunc_TT_tou_proh <- function(marker1){
-## e.g. demoFunc_TT_tou_proh("VNCAPHV")
+demoFunc_TT_tou_proh <- function(file1,marker1){
+## e.g. demoFunc_TT_tou_proh("28SLP_Rev1.1_4.0_Truth Table_DTTv1.csv","VNCAPHV")
 
-mx_dtt = read.csv("28LPSe_Rev1.0_1.0_Truth_Tables_DTTn2v3.csv", header = TRUE)
+mx_dtt = read.csv(file1, header = TRUE)
 # unpivot by library(reshape2)
 mx_dtt2 <- melt(mx_dtt, id = c("Device", "SPICE"), na.rm = TRUE)
 write.csv(x = mx_dtt2, file = "o1208_mx_dtt2.csv")
@@ -28,9 +28,9 @@ write.csv(x = mx_dtt2_colvar, file = "o1208_mx_dtt2_colvar.csv")
 ## pivot back
 mx_dtt3 <- dcast(mx_dtt2, Device + SPICE ~ variable)
 write.csv(x = mx_dtt3, file = "o1208_mx_dtt3.csv")
-## give target & val -> find unique devices
+## if target val=1 -> find unique devices val=0
 mx_dtt2_fil1 <- mx_dtt2[mx_dtt2$variable == marker1,] ## e.g. demoFunc_TT_tou_proh("VNCAPHV")
-mx_dtt2_fil1 <- mx_dtt2_fil1[mx_dtt2_fil1$value != "0",]
+mx_dtt2_fil1 <- mx_dtt2_fil1[mx_dtt2_fil1$value == "1",]
 write.csv(x = mx_dtt2_fil1, file = "o1208_mx_dtt2_fil1.csv")
 mx_dtt2_fil2 <- unique(mx_dtt2_fil1$Device) # 36ea
 write.csv(x = mx_dtt2_fil2, file = "o1208_mx_dtt2_fil2.csv") 
@@ -58,6 +58,7 @@ write.csv(x = mx_dtt2_fil_oppo2_val0, file = "o1208_mx_dtt2_fil_oppo2_val0.csv")
 mx_dtt2_fil_oppo2_val0_cou <- count(mx_dtt2_fil_oppo2_val0$variable)
 mx_dtt2_fil_oppo2_val0_cou <- mx_dtt2_fil_oppo2_val0_cou[mx_dtt2_fil_oppo2_val0_cou$freq == length(mx_dtt2_fil2),]
 write.csv(x = mx_dtt2_fil_oppo2_val0_cou, file = "o1208_mx_dtt2_fil_oppo2_val0_cou.csv")
+##
 return(mx_dtt2_fil_oppo2_val0_cou)
 ##
 }
