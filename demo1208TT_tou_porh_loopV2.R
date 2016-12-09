@@ -4,7 +4,8 @@
 # library(compare)
 ## https://www.r-bloggers.com/reshape-and-aggregate-data-with-the-r-package-reshape2/
 ## http://seananderson.ca/2013/10/19/reshape.html
-demoFunc_TT_tou_proh <- function(file1){
+demoFunc_TT_tou_proh <- function(file1)
+{
 ## e.g. demoFunc_TT_tou_proh("28SLP_Rev1.1_4.0_Truth Table_DTTv1.csv","VNCAPHV")
 
 mx_dtt = read.csv(file1, header = TRUE)
@@ -30,40 +31,42 @@ mx_dtt3 <- dcast(mx_dtt2, Device + SPICE ~ variable)
 write.csv(x = mx_dtt3, file = "o1208_mx_dtt3.csv")
 ## if target val=1 -> find unique devices val=0
 #for(j in 1:length(mx_dtt2_colvar)){
-for(j in 1:2){
+for(j in 1:2)
+	{
 
-mx_dtt2_fil1 <- mx_dtt2[mx_dtt2$variable == mx_dtt2_colvar[j],] ## e.g. demoFunc_TT_tou_proh("VNCAPHV")
-mx_dtt2_fil1 <- mx_dtt2_fil1[mx_dtt2_fil1$value == "1",]
-write.csv(x = mx_dtt2_fil1, file = "o1208_mx_dtt2_fil1.csv")
-mx_dtt2_fil2 <- unique(mx_dtt2_fil1$Device) # 36ea
-write.csv(x = mx_dtt2_fil2, file = "o1208_mx_dtt2_fil2.csv") 
+	mx_dtt2_fil1 <- mx_dtt2[mx_dtt2$variable == mx_dtt2_colvar[j],] ## e.g. demoFunc_TT_tou_proh("VNCAPHV")
+	mx_dtt2_fil1 <- mx_dtt2_fil1[mx_dtt2_fil1$value == "1",]
+	write.csv(x = mx_dtt2_fil1, file = "o1208_mx_dtt2_fil1.csv")
+	mx_dtt2_fil2 <- unique(mx_dtt2_fil1$Device) # 36ea
+	write.csv(x = mx_dtt2_fil2, file = "o1208_mx_dtt2_fil2.csv") 
 ## 124 filter != 36 -> 88
-mx_dtt2_fil_oppo <- mx_dtt2
+	mx_dtt2_fil_oppo <- mx_dtt2
 
-for(i in 1:length(mx_dtt2_fil2)) {
-  mx_dtt2_fil_oppo <- mx_dtt2_fil_oppo[mx_dtt2_fil_oppo$Device != mx_dtt2_fil2[i],]
-}
-write.csv(x = mx_dtt2_fil_oppo, file = "o1208_mx_dtt2_fil_oppo.csv")
+		for(i in 1:length(mx_dtt2_fil2)) 
+		{
+		mx_dtt2_fil_oppo <- mx_dtt2_fil_oppo[mx_dtt2_fil_oppo$Device != mx_dtt2_fil2[i],]
+		}
+	write.csv(x = mx_dtt2_fil_oppo, file = "o1208_mx_dtt2_fil_oppo.csv")
 ## then re-do 124 filter != 88 -> 36
-mx_dtt2_fil_oppo2 <- mx_dtt2
+	mx_dtt2_fil_oppo2 <- mx_dtt2
 
-for(i in 1:length(unique(mx_dtt2_fil_oppo$Device))) {
-  mx_dtt2_fil_oppo2 <- mx_dtt2_fil_oppo2[mx_dtt2_fil_oppo2$Device != mx_dtt2_fil_oppo$Device[i],]
-}
-write.csv(x = mx_dtt2_fil_oppo2, file = "o1208_mx_dtt2_fil_oppo2.csv")
+		for(i in 1:length(unique(mx_dtt2_fil_oppo$Device))) 
+		{
+		mx_dtt2_fil_oppo2 <- mx_dtt2_fil_oppo2[mx_dtt2_fil_oppo2$Device != mx_dtt2_fil_oppo$Device[i],]
+		}
+	write.csv(x = mx_dtt2_fil_oppo2, file = "o1208_mx_dtt2_fil_oppo2.csv")
 ## filter 0
-mx_dtt2_fil_oppo2_val0 <- mx_dtt2_fil_oppo2[mx_dtt2_fil_oppo2$value == "0",]
-write.csv(x = mx_dtt2_fil_oppo2_val0, file = "o1208_mx_dtt2_fil_oppo2_val0.csv")
+	mx_dtt2_fil_oppo2_val0 <- mx_dtt2_fil_oppo2[mx_dtt2_fil_oppo2$value == "0",]
+	write.csv(x = mx_dtt2_fil_oppo2_val0, file = "o1208_mx_dtt2_fil_oppo2_val0.csv")
 # write.table(x = mx_dtt2_fil_oppo2_val0$variable, file = "o1208_mx_dtt2_fil_oppo2_val0_var.txt")
 ## WC
 # install.packages("plyr")
 # library(plyr)
-mx_dtt2_fil_oppo2_val0_cou <- count(mx_dtt2_fil_oppo2_val0$variable)
-mx_dtt2_fil_oppo2_val0_cou2 <- mx_dtt2_fil_oppo2_val0_cou[mx_dtt2_fil_oppo2_val0_cou2$freq == length(mx_dtt2_fil2),]
-append(mx_dtt2_fil_oppo2_val0_cou2,0)
+	mx_dtt2_fil_oppo2_val0_cou <- count(mx_dtt2_fil_oppo2_val0$variable)
+	mx_dtt2_fil_oppo2_val0_cou <- mx_dtt2_fil_oppo2_val0_cou[mx_dtt2_fil_oppo2_val0_cou2$freq == length(mx_dtt2_fil2),]
+	write.csv(x = mx_dtt2_fil_oppo2_val0_cou, file = paste(x, mx_dtt2_colvar[j], ".csv", sep = "")
+	}
 ##
-}
-##
-write.csv(x = mx_dtt2_fil_oppo2_val0_cou2, file = "o1208_mx_dtt2_fil_oppo2_val0_cou.csv")
-return(mx_dtt2_fil_oppo2_val0_cou2)
-}
+#write.csv(x = mx_dtt2_fil_oppo2_val0_cou2, file = "o1208_mx_dtt2_fil_oppo2_val0_cou.csv")
+return(mx_dtt2_fil_oppo2_val0_cou)
+} 
