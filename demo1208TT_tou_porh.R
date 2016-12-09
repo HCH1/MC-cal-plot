@@ -4,7 +4,10 @@
 # library(compare)
 ## https://www.r-bloggers.com/reshape-and-aggregate-data-with-the-r-package-reshape2/
 ## http://seananderson.ca/2013/10/19/reshape.html
-mx_dtt = read.csv("28LPSe_Rev1.0_1.0_Truth_Tables_DTTn1v3.csv", header = TRUE)
+demoFunc_TT_tou_proh <- function(marker1){
+## e.g. demoFunc_TT_tou_proh("VNCAPHV")
+
+mx_dtt = read.csv("28LPSe_Rev1.0_1.0_Truth_Tables_DTTn2v3.csv", header = TRUE)
 # unpivot by library(reshape2)
 mx_dtt2 <- melt(mx_dtt, id = c("Device", "SPICE"), na.rm = TRUE)
 write.csv(x = mx_dtt2, file = "o1208_mx_dtt2.csv")
@@ -26,7 +29,7 @@ write.csv(x = mx_dtt2_colvar, file = "o1208_mx_dtt2_colvar.csv")
 mx_dtt3 <- dcast(mx_dtt2, Device + SPICE ~ variable)
 write.csv(x = mx_dtt3, file = "o1208_mx_dtt3.csv")
 ## give target & val -> find unique devices
-mx_dtt2_fil1 <- mx_dtt2[mx_dtt2$variable == "CELLSNR",] # e.g. CELLSNR
+mx_dtt2_fil1 <- mx_dtt2[mx_dtt2$variable == marker1,] ## e.g. demoFunc_TT_tou_proh("VNCAPHV")
 mx_dtt2_fil1 <- mx_dtt2_fil1[mx_dtt2_fil1$value != "0",]
 write.csv(x = mx_dtt2_fil1, file = "o1208_mx_dtt2_fil1.csv")
 mx_dtt2_fil2 <- unique(mx_dtt2_fil1$Device) # 36ea
@@ -48,11 +51,13 @@ write.csv(x = mx_dtt2_fil_oppo2, file = "o1208_mx_dtt2_fil_oppo2.csv")
 ## filter 0
 mx_dtt2_fil_oppo2_val0 <- mx_dtt2_fil_oppo2[mx_dtt2_fil_oppo2$value == "0",]
 write.csv(x = mx_dtt2_fil_oppo2_val0, file = "o1208_mx_dtt2_fil_oppo2_val0.csv")
-write.table(x = mx_dtt2_fil_oppo2_val0$variable, file = "o1208_mx_dtt2_fil_oppo2_val0_var.txt")
+# write.table(x = mx_dtt2_fil_oppo2_val0$variable, file = "o1208_mx_dtt2_fil_oppo2_val0_var.txt")
 ## WC
 # install.packages("plyr")
 # library(plyr)
 mx_dtt2_fil_oppo2_val0_cou <- count(mx_dtt2_fil_oppo2_val0$variable)
 mx_dtt2_fil_oppo2_val0_cou <- mx_dtt2_fil_oppo2_val0_cou[mx_dtt2_fil_oppo2_val0_cou$freq == length(mx_dtt2_fil2),]
 write.csv(x = mx_dtt2_fil_oppo2_val0_cou, file = "o1208_mx_dtt2_fil_oppo2_val0_cou.csv")
+return(mx_dtt2_fil_oppo2_val0_cou)
 ##
+}
